@@ -18,6 +18,24 @@ fun main(){
     })
 
     callbackFun("outer fun add", ::add)
+
+
+    // 尾随lambda
+    // Kotlin 允许 如果最后一个参数是函数类型或 函数式接口, 就可以把 lambda 写到括号外面
+    callbackFun("") {
+            a,b -> min(a,b)
+    }
+    // 也就是说
+    // fun("", {...}) 等效于 fun(""){...}
+    // 例如 observe(this) { ... }  等效于 observe(this, { ... })
+
+    // it
+    callbackFun2({
+        // 有且只有一个参数，且未显式命名
+        // it 不是关键字，只是一个隐式参数名
+        print(it)
+    })
+
     /*
      * Kotlin 里把函数当值传递，要用 ::
      * :: 就是"把某个东西（函数、属性、构造器）变成一个可传递的值"的操作符
@@ -74,6 +92,11 @@ fun callbackFun(flag: String, add: (Int, Int) -> Int) {
         // 参数名 add 在内层作用域，优先级更高
         // 内层同名会遮蔽外层，所以 add(12, 12) 永远指向参数
     println("$flag i = $i")
+}
+
+fun callbackFun2(func: (Int) -> Unit) {
+    func(1)
+    println(func(1))
 }
 
 fun add(a: Int, b: Int): Int {//顶层函数 add 在外层作用域
