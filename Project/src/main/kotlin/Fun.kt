@@ -41,10 +41,9 @@ fun anonymousFun(){
         println(str + i)
         i
     }
-    val funcNoReturn: (String, Int) -> Int = {
+    val funcNoReturn: (String, Int) -> Unit = {
             str, i ->
         println(str + i)
-        i
     }
 
     // 2.匿名函数(参数类型和参数名在{}中定义， 返回值自动推断)
